@@ -20,7 +20,7 @@ namespace Cheers
             //Cheer the user on.
             foreach (char letter in name)
             {
-                string vowels = "aeiouhlmnrsx";
+                string vowels = "aeiofhlmnrsx";
                 string article = "a";
                 if (vowels.Contains(Char.ToLower(letter)) == true)
                 {
