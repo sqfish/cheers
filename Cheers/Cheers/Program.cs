@@ -10,25 +10,26 @@ namespace Cheers
     {
         static void Main(string[] args)
         {
-            //Get the user's name and print it.
             Console.WriteLine("What's your name?");
             string name = Console.ReadLine();
             Console.WriteLine("Hi, " + name);
             Console.WriteLine("When is your birthday? Please use MM/DD format.");
             string input = Console.ReadLine();
             DateTime birthday = DateTime.ParseExact(input, "MM/dd", null);
-            //Cheer the user on.
-            foreach (char letter in name)
+            foreach (char letter in name.ToLower())
             {
-                string vowels = "aeiofhlmnrsx";
-                string article = "a";
-                if (vowels.Contains(Char.ToLower(letter)) == true)
+                if (Char.IsLetter(letter))
                 {
-                    article = "an";
+                    string vowels = "aeiofhlmnrsx";
+                    string article = "a";
+                    if (vowels.Contains(letter) == true)
+                    {
+                        article = "an";
+                    }
+                    Console.WriteLine("Give me " + article + "..." + letter);
                 }
-                Console.WriteLine("Give me " + article + " " + letter);
             }
-            Console.WriteLine(name + " is GRAND!");
+            Console.WriteLine(name.ToUpper() + " is... GRAND!");
             TimeSpan diff = birthday.Subtract(DateTime.Today);
             if (diff.Days > 0)
             {
