@@ -10,12 +10,17 @@ namespace Cheers
     {
         static void Main(string[] args)
         {
+            string name = NameCheer();
+            BirthdayCheer(name);
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
+        }
+
+        private static string NameCheer()
+        {
             Console.WriteLine("What's your name?");
             string name = Console.ReadLine();
             Console.WriteLine("Hi, " + name);
-            Console.WriteLine("When is your birthday? Please use MM/DD format.");
-            string input = Console.ReadLine();
-            DateTime birthday = DateTime.ParseExact(input, "MM/dd", null);
             foreach (char letter in name.ToLower())
             {
                 if (Char.IsLetter(letter))
@@ -30,21 +35,35 @@ namespace Cheers
                 }
             }
             Console.WriteLine(name.ToUpper() + " is... GRAND!");
-            TimeSpan diff = birthday.Subtract(DateTime.Today);
-            if (diff.Days > 0)
+            return name;
+        }
+
+        private static void BirthdayCheer(string name)
+        {
+            Console.WriteLine("When is your birthday? Please use MM/DD format.");
+            string input = Console.ReadLine();
+            try
             {
-                Console.WriteLine("Your birthday is {0} days away!", diff.Days);
+                DateTime birthday = DateTime.ParseExact(input, "MM/dd", null);
+                TimeSpan diff = birthday.Subtract(DateTime.Today);
+                if (diff.Days > 0)
+                {
+                    Console.WriteLine("Your birthday is in {0} day(s)!", diff.Days);
+                }
+                else if (diff.Days < 0)
+                {
+
+                    Console.WriteLine("Your birthday is in {0} day(s)!", diff.Days + 365 + 1);
+                }
+                else
+                {
+                    Console.WriteLine("Happy Birthday, {0}!!!", name);
+                }
             }
-            else if (diff.Days < 0)
+            catch (FormatException)
             {
-                Console.WriteLine("Your birthday is {0} days away!", diff.Days + 365 + 1);
+                Console.WriteLine("You entered an invalid birthday.");
             }
-            else
-            {
-                Console.WriteLine("Happy Birthday, {0}!!!", name);
-            }
-            Console.WriteLine("Press any key to exit");
-            Console.ReadKey();
         }
     }
 }
